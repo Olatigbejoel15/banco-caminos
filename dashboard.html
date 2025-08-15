@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Banco Caminos Flash Account</title>
+
+  <!-- ✅ Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #204478;
+      color: white;
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+    .sidebar h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar a {
+      display: block;
+      padding: 0.7rem;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #1a3660;
+    }
+    .content {
+      flex: 1;
+      padding: 1.5rem;
+      background-color: #fff;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #e8e8e8;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.7rem;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    button {
+      padding: 0.6rem 1rem;
+      background-color: #204478;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1a3660;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      margin: 10% auto;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hamburger toggle */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 1000;
+        transform: translateX(-100%);
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .hamburger {
+        display: block;
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hamburger button -->
+
+<div>
+<button class="hamburger" onclick="toggleSidebar()">
+  ☰
+</button>
+</div>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar">
+    <h2>Banco Caminos</h2>
+    <a href="#" onclick="showModal()">Transfer</a>
+    <a href="#" onclick="showModal()">Summary</a>
+    <a href="#" onclick="showModal()">Statements</a>
+    <a href="#" onclick="showModal()">Account Details</a>
+    <a href="login.html">Log Out</a>
+  </div>
+
+  <div class="content">
+    <div class="top-nav">
+      <div><strong>Welcome, Edward</strong></div>
+      <div>Balance: <strong>€1,200,707.00</strong></div>
+    </div>
+
+    <div class="card">
+      <h3>Beneficiary Details</h3>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Account Number</th><th>Bank</th><th>Relationship</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Name">Courtney Samantha Edward</td>
+            <td data-label="Account Number">0134567890</td>
+            <td data-label="Bank">Banco Caminos</td>
+            <td data-label="Relationship">Beneficiary</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Account Details</h3>
+      <table>
+        <tbody>
+          <tr><td data-label="Account Name">Edward Bernard</td></tr>
+          <tr><td data-label="Account Number">92819029102</td></tr>
+          <tr><td data-label="Account Type">Savings</td></tr>
+          <tr><td data-label="Status">Inactive</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Transaction History</h3>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Type</th><th>Amount</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Date">2025-05-21</td>
+            <td data-label="Type">Deposit</td>
+            <td data-label="Amount">€1,200,707.00</td>
+            <td data-label="Status">Successful</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Beneficiary Table</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th><th>Bank</th><th>Account Number</th><th>Status</th>
+          </tr>
+        </thead>
+        <!-- Empty tbody -->
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="accessModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <p><strong>Access Restricted</strong></p>
+    <p>You must pay a $30,000 processing fee to unlock this feature.</p>
+    <button onclick="showOfficerMessage()">Pay Now</button>
+    <div id="officerMessage" style="margin-top: 1rem; display: none; font-weight: bold;">
+      Contact your account officer in charge.
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function showModal() {
+    document.getElementById("accessModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("accessModal").style.display = "none";
+    document.getElementById("officerMessage").style.display = "none";
+  }
+
+  function showOfficerMessage() {
+    document.getElementById("officerMessage").style.display = "block";
+  }
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
+  }
+</script>
+
+</body>
+</html>
